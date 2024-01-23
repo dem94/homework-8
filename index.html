@@ -1,40 +1,120 @@
 <!DOCTYPE html>
-<html lang="en-gb">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link 
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" 
-      rel="stylesheet" 
-      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" 
-      crossorigin="anonymous"
-      />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
-      rel="stylesheet"
-    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="style.css" />
     <title>Work Day Scheduler</title>
   </head>
 
   <body>
-    <header>
+    <header class="jumbotron pb-1">
       <h1 class="display-3">Work Day Scheduler</h1>
       <p class="lead">A simple calendar app for scheduling your work day</p>
       <p id="currentDay" class="lead"></p>
     </header>
-    <div class="container">
-      <!-- Timeblocks go here -->
-    </div>
+    <div class="container mb-5">
+      <p id="confirmation-msg"></p>
+      <div class="row time-block" data-time="9">
+        <div class="col-1 hour">9AM</div>
+        <textarea class="col-10 description1" id="hour-9"></textarea>
+        <button class="col-1 saveBtn"><i class="fas fa-save"></i></button>
+      </div>
+      
+      <div class="row time-block" data-time="10">
+        <div class="col-1 hour">10AM</div>
+        <textarea class="col-10 description" id="hour-10" ></textarea>
+        <button class="col-1 saveBtn"><i class="fas fa-save"></i></button>
+      </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+      <div class="row time-block" data-time="10">
+        <div class="col-1 hour">11AM</div>
+        <textarea class="col-10 description" id="hour-10" ></textarea>
+        <button class="col-1 saveBtn"><i class="fas fa-save"></i></button>
+      </div>
+
+      <div class="row time-block" data-time="10">
+        <div class="col-1 hour">12PM</div>
+        <textarea class="col-10 description" id="hour-10" ></textarea>
+        <button class="col-1 saveBtn"><i class="fas fa-save"></i></button>
+      </div>
+
+      <div class="row time-block" data-time="10">
+        <div class="col-1 hour">13PM</div>
+        <textarea class="col-10 description" id="hour-10" ></textarea>
+        <button class="col-1 saveBtn"><i class="fas fa-save"></i></button>
+      </div>
+
+      <div class="row time-block" data-time="10">
+        <div class="col-1 hour">14PM</div>
+        <textarea class="col-10 description" id="hour-10" ></textarea>
+        <button class="col-1 saveBtn"><i class="fas fa-save"></i></button>
+      </div>
+
+      <div class="row time-block" data-time="10">
+        <div class="col-1 hour">15PM</div>
+        <textarea class="col-10 description" id="hour-10" ></textarea>
+        <button class="col-1 saveBtn"><i class="fas fa-save"></i></button>
+      </div>
+
+      <div class="row time-block" data-time="10">
+        <div class="col-1 hour">16PM</div>
+        <textarea class="col-10 description" id="hour-10" ></textarea>
+        <button class="col-1 saveBtn"><i class="fas fa-save"></i></button>
+      </div>
+      <div class="row time-block" data-time="10">
+        <div class="col-1 hour">17PM</div>
+        <textarea class="col-10 description" id="hour-10" ></textarea>
+        <button class="col-1 saveBtn"><i class="fas fa-save"></i></button>
+      </div>
+
+
+      <!-- Repeat the above pattern for other hours -->
+
+    </div>
+    <script>
+      $(document).ready(function () {
+        // Function to update the current date and time
+        function updateCurrentTime() {
+          var currentTime = moment().format("MMMM Do YYYY, h:mm:ss a");
+          $("#currentDay").text("Current Time: " + currentTime);
+        }
+
+        // Call the function initially
+        updateCurrentTime();
+
+        // Update current time every second
+        setInterval(updateCurrentTime, 1000);
+
+        // Your existing code for saving tasks can go here
+
+        // Example: Saving the content of the textareas to localStorage on button click
+        $(".saveBtn").on("click", function () {
+          var hour = $(this).siblings(".hour").text().trim();
+          var textAreaContent = $(this).siblings("textarea").val().trim();
+
+          // Save to localStorage (you may need to modify this based on your requirements)
+          localStorage.setItem(hour, textAreaContent);
+        });
+
+        // Example: Loading the saved content from localStorage on page load
+        $(".time-block").each(function () {
+          var hour = $(this).find(".hour").text().trim();
+          var savedContent = localStorage.getItem(hour);
+
+          // Set the content of the textarea if there's saved content
+          if (savedContent !== null) {
+            $(this).find("textarea").val(savedContent);
+          }
+        });
+      });
+    </script>
+    <script src="java.js"></script>
   </body>
-</html>
+</html> 
