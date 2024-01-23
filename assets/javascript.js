@@ -1,23 +1,7 @@
-//Add current date and time to #currentDay
-//Add a p-tag immediately before table with id="appointmentAdded"
-//Create a table 9 rows with 3 columns inside container element
-//Give container mx-auto
-//Make with of first and last columns col-1
-//Make middle column col-8
-//Add input in each row
-//setList inputs to localStorage() with key "hour __" and value "input.value"
-//getList inputs from localStorage()
-//Assign each time row a number in military time equal to the corresponding time
-//Create if function to measure time against our calendar
-        //if current time > previous hour value && current time > next hour, assign class "present"
-        //if current time > previous hours, assign class="past"
-        //if current time < future hours, assign class="future"
 
-//Display time in hero
 var currentTimeDisplay = $("#currentDay");
 currentTimeDisplay.text(moment().format('llll'));
 
-//Create variables for textarea to be used to get value
 var hourNineText = $("#hour-9");
 var hourTenText = $("#hour-10");
 var hourElevenText = $("#hour-11");
@@ -31,10 +15,8 @@ var confirmationMsg = $("#confirmation-msg");
 var timeBlock = $(".time-block")
 
 
-//Create variables for save button to initialize a click event to store textarea value to local storage
 var saveBtn = $(".saveBtn");
 
-//Onclick, save the value of all items to local storage
 saveBtn.on("click", function(e) {
     e.preventDefault();
     confirmationMsg.html("Appointment Added with <code>localStorage</code> ✅");
@@ -59,7 +41,6 @@ saveBtn.on("click", function(e) {
     localStorage.setItem("hour17", hourSeventeenVal);
 });
 
-//On page load, place all items from local storage to pageset
 function init() {
     hourNineText.text(localStorage.getItem("hour09"));
     hourTenText.text(localStorage.getItem("hour10"));
@@ -75,10 +56,9 @@ function init() {
 init()
 
 
-//Find value for current hour
+
 var currentHour = moment().hours();
-// var currentHour = 12
-// console.log(currentHour);
+
 
 for (var i = 0; i < timeBlock.length; i++) {
     if (timeBlock[i].dataset.time == currentHour) {
